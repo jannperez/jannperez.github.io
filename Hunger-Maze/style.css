@@ -1,0 +1,92 @@
+body {
+  background-color: red;
+  margin: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  /*remove this later */
+  overflow: hidden;
+}
+
+#container {
+  margin: 30px auto;
+  max-width: 650px;
+}
+
+h1 {
+  text-align: center;
+  line-height: 1.1;
+  font-weight: normal;
+  color: white;
+  background: red;
+  margin: 0;
+  text-transform: uppercase;
+  padding: 30px 0;
+}
+
+body {
+  font-family: Calibri;
+  transition: 0.2s ease;
+  text-align: center;
+}
+body.success  {
+  background-color: #b7f0b7;
+  transition: 0.2s ease;
+}
+.game-container {
+  margin: 0px auto;
+  height: 500px;
+}
+
+p {
+  margin: 10px 0px;
+  padding: 0px;
+  text-align: center;
+  color:black;
+  font-size: large;
+}
+.game-map {
+  position: relative;
+}
+div.layer, 
+div.layer div {
+  position: absolute;
+}
+#tiles div {
+  border: 1px solid rosybrown;
+}
+.default .floor {
+  background-color: lightgoldenrodyellow;
+}
+.default .wall {
+  background-color: pink;
+}
+.player {
+  background-color: #90ee90;
+  border: 1px solid green;
+}
+.goal {
+  background-color: #FFD700;
+  border: 1px solid #98720b;
+  background-image: url('./strawberry.svg');
+}
+.player {
+  background-color: #90ee90;
+  border: 1px solid green;
+  transition: left 0.2s linear, top 0.2s linear;
+}
+#success-msg {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  position: absolute;
+  padding: 5px 5px;
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  width: calc(100% - 8px);
+}
+ body.success #success-msg {
+  opacity: 1;
+  transition: opacity 0.2 ease;
+}
+#map-and-controls {
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hunger Maze Game</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        body {
+        background-image: url('https://i.pinimg.com/originals/e5/89/b7/e589b74e3ab9526905e1d98d86309f2d.jpg');
+        
+    }
+
+    </style>
+</head>
+
+<body>
+    <h1>
+        Hunger Maze
+        <br>
+        <span id="mazeDisplay">Game</span>
+        <br>
+        Let The Hunger Maze Begin!
+    </h1>
+
+    <div id="maze-container-1" class="maze-container">
+        <div id="map-and-controls">
+            <div id="maze-map-1" class="maze-map">
+                <div id="tiles" class="layer"></div>
+                <div id="sprites" class="layer"></div>
+
+            </div>
+        </div>
+    </div>
+    <h1>Time Left: <span id="timer">10</span> seconds</h1>
+    <p id="text-1" class="text">
+        How to Play: Use your up, left, down, and right tab key!
+    </p>
+    <button id="Start">Start</button>
+    <button id="Restart">Restart</button>
+    </div>
+    <script src="maze.js"></script>
+    </canvas>
+</body>
+
+</html>
