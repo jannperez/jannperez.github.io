@@ -12,12 +12,26 @@ levels[0] = {
         x: 0,
         y: 0
     },
+    player2: {
+        x: 0,
+        y:1,
+        
+    },
+    
+
     goal: {
         x: 4,
         y: 3
     },
     theme: 'default'
 };
+
+const player1 = document.querySelector("#player1");
+const player2 = document.querySelector("#player2");
+
+player1.addEventListener('click', () => {
+
+})
 function Game(id, level) {
 
     this.el = document.getElementById(id);
@@ -30,6 +44,7 @@ function Game(id, level) {
     this.map = level.map;
     this.theme = level.theme
     this.player = { ...level.player };
+    this.player2 = { ...level.player2 };
     this.goal = { ...level.goal };
     this.timeLeft = 10;
     this.gameOver = false;
@@ -52,7 +67,7 @@ Game.prototype.drawMap = function () {
             let tileType = this.tileTypes[tileCode];
 
             let tile = this.createEl(x, y, tileType);
-
+            
             tiles.appendChild(tile); // add to tile layer
         }
     }
@@ -60,6 +75,9 @@ Game.prototype.drawMap = function () {
     //Create the player
     let playerTile = this.createEl(this.player.x, this.player.y, 'player');
     tiles.appendChild(playerTile)
+
+    let player2Tile = this.createEl(this.player2.x, this.player2.y, 'player2');
+    tiles.appendChild(player2Tile) 
 
     // Creates the prize/goal
     let goalTile = this.createEl(this.goal.x, this.goal.y, "goal")
@@ -134,6 +152,15 @@ Game.prototype.listenForKeys = function () {
                 self.player.y = levels[0].player.y;
                 self.gameOver = true;
                 alert("Congratulations to our new Tribute!")
+
+            alert("Second Tribute will start!")
+
+    
+                
+                //create counter for each player and initialize it to 0, if the player wins counter = 1,
+                //when 2 players finished the game compare the counter valuesand alert who wins the game
+
+                //start a new game for player2      
                 self.drawMap()
             }, 500);
         }

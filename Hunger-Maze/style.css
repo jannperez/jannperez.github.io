@@ -73,6 +73,11 @@ div.layer div {
   border: 1px solid green;
   transition: left 0.2s linear, top 0.2s linear;
 }
+.player2 {
+  background-color: red;
+  border: 1px solid red;
+  transition: left 0.2s linear, top 0.2s linear;
+}
 #success-msg {
   opacity: 0;
   transition: opacity 0.2s ease;
