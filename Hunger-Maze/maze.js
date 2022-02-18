@@ -111,59 +111,123 @@ Game.prototype.sizeUp = function () {
 
     map.style.width = this.map[0].length * this.tileDim + 'px';
 }
-
+//Define a global varaible to track if it's player 1's turn
+window.player1turn=true;
 Game.prototype.listenForKeys = function () {
     let self = this;
     document.onkeydown = function (e) {
         const initialPosition = { x: self.player.x, y: self.player.y }
         e = e || window.event;
 
-        // If up is pressed, and the player isn't out of bounds at the top
-        if (e.key == 'ArrowUp' && self.player.y > 0) {
-            self.player.y = self.player.y - 1
+        // If statement is to meant to check to see if it is player 1's turn
+        if(window.player1turn){
+            // If up is pressed, and the player isn't out of bounds at the top
+            if (e.key == 'ArrowUp' && self.player.y > 0) {
+                self.player.y = self.player.y - 1
+            }
+            // If down is pressed, and the player isn't out of bounds at the bottom
+            else if (e.key == 'ArrowDown' && self.player.y < self.map.length - 1) {
+                self.player.y = self.player.y + 1
+            }
+            else if (e.key == 'ArrowLeft' && self.player.x > 0) {
+                self.player.x = self.player.x - 1
+            }
+            else if (e.key == 'ArrowRight' && self.player.x < self.map[0].length - 1) {
+                self.player.x = self.player.x + 1
+            }
+
+            //Check to see if new position will be a wall
+            if (self.map[self.player.y][self.player.x] == 1) {
+                // If it is, change the position to the initial position (Before we moved it)
+                self.player.x = initialPosition.x;
+                self.player.y = initialPosition.y;
+            }
+
+            // ReDraw the map with the new position data
+            self.drawMap()
+
+            // If the player position is the same position as the goal/prize position
+            if (self.player.x == self.goal.x && self.player.y == self.goal.y) {
+
+                // set a delay by 500ms to do an alert, reset the position, and set gameOver to true. redraw map
+                setTimeout(function () {
+                    self.player.x = levels[0].player.x;
+                    self.player.y = levels[0].player.y;
+                    self.gameOver = true;
+                    alert("Congratulations to our new Tribute!")
+                    //set player1's score to time left, by looking at how much time is left on the timer
+                    window.player1Time= document.getElementById("timer").innerHTML;
+                    // indicate if player1's turn is over
+                    window.player1turn=false;
+                    alert("Second Tribute will start!")
+
+                    //create counter for each player and initialize it to 0, if the player wins counter = 1,
+                    //when 2 players finished the game compare the counter valuesand alert who wins the game
+
+                    //start a new game for player2      
+                    self.drawMap()
+                }, 500);
+            }
+        }else {
+            // If up is pressed, and the player isn't out of bounds at the top
+            if (e.key == 'ArrowUp' && self.player2.y > 0) {
+                self.player2.y = self.player2.y - 1
+            }
+            // If down is pressed, and the player isn't out of bounds at the bottom
+            else if (e.key == 'ArrowDown' && self.player2.y < self.map.length - 1) {
+                self.player2.y = self.player2.y + 1
+            }
+            else if (e.key == 'ArrowLeft' && self.player2.x > 0) {
+                self.player2.x = self.player2.x - 1
+            }
+            else if (e.key == 'ArrowRight' && self.player2.x < self.map[0].length - 1) {
+                self.player2.x = self.player2.x + 1
+            }
+
+            //Check to see if new position will be a wall
+            if (self.map[self.player2.y][self.player2.x] == 1) {
+                // If it is, change the position to the initial position (Before we moved it)
+                self.player2.x = initialPosition.x;
+                self.player2.y = initialPosition.y;
+            }
+
+            // ReDraw the map with the new position data
+            self.drawMap()
+
+            // If the player position is the same position as the goal/prize position
+            if (self.player2.x == self.goal.x && self.player2.y == self.goal.y) {
+
+                // set a delay by 500ms to do an alert, reset the position, and set gameOver to true. redraw map
+                setTimeout(function () {
+                    self.player2.x = levels[0].player2.x;
+                    self.player2.y = levels[0].player2.y;
+                    self.gameOver = true;
+                    //set player2's score to time left, by looking at how much time is left on the timer
+                    window.player2Time= document.getElementById("timer").innerHTML;
+
+                    alert("Congratulations to our new Tribute!")
+                    
+                    //Compare player 1 and 2 score to see who wins
+                    if(window.player1Time>window.player2Time){
+                        alert("Player 1 wins! \n Time Spared: \nPlayer 1: "+window.player1Time+" secs \nPlayer 2: "+window.player2Time+" secs")
+                    }else if(window.player1Time<window.player2Time){
+                        alert("Player 2 wins! \n Time Spared: \nPlayer 1: "+window.player1Time+" secs \nPlayer 2: "+window.player2Time+" secs")
+                    }else {
+                        alert("Game is a tie! \n Time Spared: \nPlayer 1: "+window.player1Time+" secs \nPlayer 2: "+window.player2Time+" secs")
+                    }
+
+        
+                    
+                    //create counter for each player and initialize it to 0, if the player wins counter = 1,
+                    //when 2 players finished the game compare the counter valuesand alert who wins the game
+
+                    //start a new game for player2      
+                    self.drawMap()
+                }, 500);
+            }
         }
-        // If down is pressed, and the player isn't out of bounds at the bottom
-        else if (e.key == 'ArrowDown' && self.player.y < self.map.length - 1) {
-            self.player.y = self.player.y + 1
-        }
-        else if (e.key == 'ArrowLeft' && self.player.x > 0) {
-            self.player.x = self.player.x - 1
-        }
-        else if (e.key == 'ArrowRight' && self.player.x < self.map[0].length - 1) {
-            self.player.x = self.player.x + 1
-        }
 
-        //Check to see if new position will be a wall
-        if (self.map[self.player.y][self.player.x] == 1) {
-            // If it is, change the position to the initial position (Before we moved it)
-            self.player.x = initialPosition.x;
-            self.player.y = initialPosition.y;
-        }
 
-        // ReDraw the map with the new position data
-        self.drawMap()
-
-        // If the player position is the same position as the goal/prize position
-        if (self.player.x == self.goal.x && self.player.y == self.goal.y) {
-
-            // set a delay by 500ms to do an alert, reset the position, and set gameOver to true. redraw map
-            setTimeout(function () {
-                self.player.x = levels[0].player.x;
-                self.player.y = levels[0].player.y;
-                self.gameOver = true;
-                alert("Congratulations to our new Tribute!")
-
-            alert("Second Tribute will start!")
-
-    
-                
-                //create counter for each player and initialize it to 0, if the player wins counter = 1,
-                //when 2 players finished the game compare the counter valuesand alert who wins the game
-
-                //start a new game for player2      
-                self.drawMap()
-            }, 500);
-        }
 
 
     }
